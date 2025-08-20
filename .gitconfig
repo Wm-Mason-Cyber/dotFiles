@@ -1,29 +1,17 @@
-[user]
-  name = skyeWithAnE23
-  email = gavin.dunn2030@gmail.com
-
 [core]
-  editor = nvim
-  autocrlf = input
-
-[alias]
-  st = status
-  co = checkout
-  br = branch
-  c = commit
-  lg = log --oneline --graph --decorate
+  editor = vim
 
 [color]
   ui = auto
 
-[push]
-  default = simple
+# ~/.gitconfig - template for students. Fill in name and email after forking.
+[user]
+  name = Your Name Here
+  email = you@example.com
 
-[fetch]
-  prune = true
-
-[diff]
-  tool = meld
-
-[merge]
-  tool = meld
+# Tips:
+#  - Update your name and email:
+#      git config --global user.name "Your Name"
+#      git config --global user.email you@example.com
+#  - This file is safe to commit into a classroom repo as a template; each student should
+#    replace the placeholder values with their own.
