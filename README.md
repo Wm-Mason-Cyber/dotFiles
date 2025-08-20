@@ -1,9 +1,11 @@
 # dotFiles
 A dotfiles setup to get things moving quickly. 
 
+If you are new to all of this, we recommend watching this video: [~/.dotfiles in 100 Seconds @Fireship/YouTube](https://youtu.be/r_MpUP6aKiQ)
+
 The fastest way to get up and running is to run these commands: 
 
-1. Download the files to your user home (~)
+1. Download the files to your user home (`~`)
 ```bash
 git clone https://github.com/RiceC-at-MasonHS/dotFiles.git
 ```
