@@ -6,8 +6,8 @@
 
 # ~/.gitconfig - template for students. Fill in name and email after forking.
 [user]
-  name = Your Name Here
-  email = you@example.com
+  email = 171101634+RiceC-at-MasonHS@users.noreply.github.com
+  name = RiceC-at-MasonHS
 
 # Tips:
 #  - Update your name and email:
