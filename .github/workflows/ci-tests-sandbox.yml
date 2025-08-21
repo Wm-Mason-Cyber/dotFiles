@@ -1,0 +1,34 @@
+name: CI - sandboxed tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bash (ensure latest tools)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bash coreutils
+
+      - name: Make tests executable
+        run: chmod +x tests/*.sh
+
+      - name: Run tests inside temporary HOME
+        run: |
+          TMP_HOME=$(mktemp -d)
+          echo "Using fake HOME=${TMP_HOME} for CI tests"
+          export HOME="${TMP_HOME}"
+          # Create an empty .bash_aliases so .bashrc sourcing behaves predictably
+          touch "${HOME}/.bash_aliases"
+          ./tests/verify_prompt.sh
+          ./tests/verify_standard_apps.sh
+          ./tests/verify_install.sh
+        shell: bash
