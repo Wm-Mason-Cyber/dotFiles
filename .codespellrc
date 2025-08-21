@@ -1,0 +1,4 @@
+# codespell configuration
+skip="*.png,*.jpg,*.gif,*.svg,*.lock,venv/*,node_modules/*"
+ignore-words-list=teh,adn,recieve
+replace="teh:the,recieve:receive,adn:and"
