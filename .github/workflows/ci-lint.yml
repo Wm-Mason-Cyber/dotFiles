@@ -39,5 +39,10 @@ jobs:
       - name: Install pre-commit
         run: python -m pip install --upgrade pip pre-commit
 
+      - name: Configure git identity for CI
+        run: |
+          git config user.email "ci@example.com"
+          git config user.name "CI Runner"
+
       - name: Run pre-commit on all files
         run: pre-commit run --all-files
