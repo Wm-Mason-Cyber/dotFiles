@@ -1,0 +1,67 @@
+name: Prompt check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  prompt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: sudo apt update && sudo apt install -y bash git
+      - name: Validate .bashrc and helpers
+        run: |
+          set -euo pipefail
+          # shellcheck source=/dev/null
+          source ./.bashrc
+          # check that functions exist
+          declare -F build_ps1 >/dev/null
+          declare -F prompt_short >/dev/null
+          declare -F prompt_verbose >/dev/null
+          declare -F git_branch >/dev/null
+          declare -F git_dirty >/dev/null
+          # PS1 should be non-empty after building
+          build_ps1
+          if [ -z "${PS1:-}" ]; then
+            echo "PS1 is empty" >&2
+            exit 2
+          fi
+          echo "PS1 and helpers present"
+      - name: Run package list check
+        run: |
+          set -euo pipefail
+          bash ./standard-apps.sh list
+
+      - name: Run installer dry-run check
+        run: |
+          set -euo pipefail
+          # ensure installer parses and dry-run doesn't error
+          bash -n ./install.sh
+          bash ./install.sh --dry-run --backup || true
+
+      - name: Git branch and dirty marker test
+        run: |
+          set -euo pipefail
+          tmpdir=$(mktemp -d)
+          pushd "$tmpdir"
+          git init -q
+          echo hello > a.txt
+          git add a.txt
+          git commit -m init -q
+          # check branch name
+          branch=$(bash -lc 'source ../../.bashrc >/dev/null 2>&1; git_branch')
+          if [ -z "$branch" ]; then
+            echo "git_branch returned empty" >&2
+            exit 2
+          fi
+          # make dirty
+          echo change >> a.txt
+          # dirty indicator
+          dirty=$(bash -lc 'source ../../.bashrc >/dev/null 2>&1; git_dirty')
+          if [ -z "$dirty" ]; then
+            echo "git_dirty returned empty on modified repo" >&2
+            exit 2
+          fi
+          popd
