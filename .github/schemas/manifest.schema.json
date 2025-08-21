@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "dotFiles manifest",
+  "type": "object",
+  "required": ["name", "description", "entrypoints", "files"],
+  "properties": {
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "version": {"type": "string"},
+    "goals": {"type": "array", "items": {"type": "string"}},
+    "platforms": {"type": "array", "items": {"type": "string"}},
+    "entrypoints": {
+      "type": "object",
+      "properties": {
+        "install": {"type": "string"},
+        "packages": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "files": {"type": "array", "items": {"type": "string"}},
+    "recommended_packages": {"type": "array", "items": {"type": "string"}},
+    "maintainer": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "email": {"type": "string", "format": "email"}
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "license": {"type": "string"},
+    "vibe_coding": {"type": "object"}
+  },
+  "additionalProperties": false
+}
