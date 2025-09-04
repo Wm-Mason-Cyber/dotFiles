@@ -1,8 +1,7 @@
 # ~/.bash_aliases - small, clear, and documented for classroom use
 
 # Common navigation
-alias ..='cd ..'
-alias ...='cd ../..'
+alias ...='cd ..'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 
